@@ -1,0 +1,4 @@
+djangorestframework
+Pillow
+python-dotenv
+django-rest-swagger
