@@ -7,6 +7,9 @@ from src.oauth.managers import CustomUserManager
 
 
 class User(AbstractUser):
+    '''
+    Кастомная модель пользователя
+    '''
     username = models.CharField(
         'Username', max_length=100, unique=True, blank=True, null=True)
     email = models.EmailField('Email', max_length=100, unique=True)
@@ -38,3 +41,42 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+    
+class Follower(models.Model):
+    '''
+    Кто друг на друга подписан
+    '''
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='owner'
+    )
+    subsriber = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='subsribers'
+    )
+
+    class Meta:
+        verbose_name = 'Подписчик'
+        verbose_name_plural = 'Подписчики'
+
+    def __str__(self):
+        return f'{self.subsriber} подписан на {self.user}'
+    
+class UsersSocialLink(models.Model):
+    '''
+    Социальные сети пользователя
+    '''
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='social_links'
+    )
+    telegram_link = models.URLField(
+        'Ссылка на Telegram', max_length=100, blank=True, null=True
+    )
+    youtube_link = models.URLField(
+        'Ссылка на YouTube', max_length=100, blank=True, null=True
+    )
+    vk_link = models.URLField(
+        'Ссылка на Вконтакте', max_length=100, blank=True, null=True
+    )
+
+    class Meta:
+        verbose_name = 'Социальная сеть'
+        verbose_name_plural = 'Социальные сети'
