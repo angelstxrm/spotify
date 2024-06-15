@@ -5,7 +5,10 @@ from src.base.services import validate_size_image
 from src.oauth.managers import CustomUserManager
 
 
+
 class User(AbstractUser):
+    username = models.CharField(
+        'Username', max_length=100, unique=True, blank=True, null=True)
     email = models.EmailField('Email', max_length=100, unique=True)
     join_date = models.DateField('Join Date', auto_now_add=True)
     country = models.CharField(
@@ -17,7 +20,7 @@ class User(AbstractUser):
         'Display Name', max_length=100, blank=True, null=True
     )
     avatar = models.ImageField(
-        'Avatar', upload_to='avatars/', blank=True, null=True, validators=[
+        'Avatar', upload_to='oauth/avatars/', help_text='Поддерживается формат: jpg, jpeg, png', blank=True, null=True, validators=[
             FileExtensionValidator(
                 allowed_extensions=['jpg', 'jpeg', 'png']
             ), validate_size_image
