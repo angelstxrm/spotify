@@ -34,3 +34,11 @@ class AuthorSerializer(serializers.ModelSerializer):
             'display_name',
             'avatar',
         )
+
+class SocialLinkSerializer(serializers.ModelSerializer):
+    '''
+    [CRUD] Сериализация социаильных сетей пользователя
+    '''
+    class Meta:
+        model = UsersSocialLink
+        fields = ('link',)

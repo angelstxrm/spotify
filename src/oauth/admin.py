@@ -15,4 +15,4 @@ class FollowerAdmin(admin.ModelAdmin):
 
 @admin.register(UsersSocialLink)
 class SocialLinkAdmin(admin.ModelAdmin):
-    list_display = ('user', 'telegram_link', 'youtube_link', 'vk_link')
+    list_display = ('user', 'link')

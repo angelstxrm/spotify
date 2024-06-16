@@ -64,17 +64,11 @@ class UsersSocialLink(models.Model):
     '''
     Социальные сети пользователя
     '''
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='social_links'
     )
-    telegram_link = models.URLField(
-        'Ссылка на Telegram', max_length=100, blank=True, null=True
-    )
-    youtube_link = models.URLField(
-        'Ссылка на YouTube', max_length=100, blank=True, null=True
-    )
-    vk_link = models.URLField(
-        'Ссылка на Вконтакте', max_length=100, blank=True, null=True
+    link = models.URLField(
+        'Ссылка на соц.сети', max_length=100, blank=True, null=True, unique=True
     )
 
     class Meta:
