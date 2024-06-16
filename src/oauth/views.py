@@ -31,7 +31,7 @@ class AuthorView(viewsets.ReadOnlyModelViewSet):
     '''
     Список авторов
     '''
-    queryset = User.objects.all().prefetch_related('social_links')
+    queryset = User.objects.all().select_related('social_links')
     serializer_class = serializers.AuthorSerializer
 
 @method_decorator(name='list', decorator=swagger_auto_schema(tags=['Социальные сети']))
