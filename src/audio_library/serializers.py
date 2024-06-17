@@ -1,7 +1,15 @@
 from rest_framework import serializers
-from .models import License, Genre, Album, Track, Comment, PlayList
+from .models import Genre, License
 
-class GenreSerializer(serializers.ModelSerializer):
+class BaseSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+class GenreSerializer(BaseSerializer):
     class Meta:
         model = Genre
-        fields = ('name',)
+        fields = ('id', 'name')
+
+class LicenseSerializer(BaseSerializer):
+    class Meta:
+        model = License
+        fields = ('id', 'text')

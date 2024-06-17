@@ -47,7 +47,13 @@ class SocialLinkViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthor]
 
     def get_queryset(self):
+        # Проверяем, если это вызов drf-yasg для генерации схемы
+        if getattr(self, 'swagger_fake_view', False):
+            return UsersSocialLink.objects.none()  
+        
         return self.request.user.social_links.all()
     
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        # Проверяем, если это вызов drf-yasg для генерации схемы
+        if not getattr(self, 'swagger_fake_view', False):
+            serializer.save(user=self.request.user)
