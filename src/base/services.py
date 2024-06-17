@@ -1,3 +1,4 @@
+import os
 from rest_framework.exceptions import ValidationError
 
 
@@ -34,3 +35,10 @@ def validate_size_image(file_obj):
         raise ValidationError(
             f'Размер файла не должен превышать {megabyte_limit} Мб'
         )
+    
+def delete_old_file(path_file):
+    '''
+    Удаление старого файла
+    '''
+    if os.path.exists(path_file):
+        os.remove(path_file)
