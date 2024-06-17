@@ -41,6 +41,7 @@ APPLICATION = [
 
 LOCAL_APPS = [
     'src.oauth',
+    'src.audio_library',
 ]
 
 OAUTH_APPS = [

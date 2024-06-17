@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator
-from src.base.services import validate_size_image
+from src.base.services import get_patch_upload_avatar, validate_size_image
 from src.oauth.managers import CustomUserManager
 
 
@@ -23,7 +23,7 @@ class User(AbstractUser):
         'Display Name', max_length=100, blank=True, null=True
     )
     avatar = models.ImageField(
-        'Avatar', upload_to='oauth/avatars/', help_text='Поддерживается формат: jpg, jpeg, png', blank=True, null=True, validators=[
+        'Avatar', upload_to=get_patch_upload_avatar, help_text='Поддерживается формат: jpg, jpeg, png', blank=True, null=True, validators=[
             FileExtensionValidator(
                 allowed_extensions=['jpg', 'jpeg', 'png']
             ), validate_size_image

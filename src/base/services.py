@@ -1,11 +1,36 @@
 from rest_framework.exceptions import ValidationError
 
-def validate_size_image(value):
+
+def get_patch_upload_cover(instance, file):
+    '''
+    Построение пути к файлу, format: (media/album/{user_id}/{file_name})
+    '''
+    return f'album/user_{instance.user.id}/{file}'
+
+def get_patch_upload_avatar(instance, file):
+    '''
+    Построение пути к файлу, format: (media/avatars/{user_id}/{file_name})
+    '''
+    return f'avatar/user_{instance.user.id}/{file}'
+
+def get_patch_upload_track(instance, file):
+    '''
+    Построение пути к файлу, format: (media/track/{user_id}/{file_name})
+    '''
+    return f'track/user_{instance.user.id}/{file}'
+
+def get_patch_upload_playlist(instance, file):
+    '''
+    Построение пути к файлу, format: (media/playlist/{user_id}/{file_name})
+    '''
+    return f'playlist/user_{instance.user.id}/{file}'
+
+def validate_size_image(file_obj):
     '''
     Проверка размера изображения
     '''
-    megabite_limit = 2
-    if value.size > megabite_limit * 1024 * 1024:
+    megabyte_limit = 2
+    if file_obj.size > megabyte_limit * 1024 * 1024:
         raise ValidationError(
-            'Размер изображения не должен превышать 2 мегабайта'
+            f'Размер файла не должен превышать {megabyte_limit} Мб'
         )
